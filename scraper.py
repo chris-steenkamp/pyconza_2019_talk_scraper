@@ -8,10 +8,10 @@ def __open_url(url):
             if __is_valid_response(resp):
                 return resp.content
             else:
-                __log_error('invalid response received')
+                __log_message('invalid response received')
                 return None
     except RequestException as e:
-        __log_error(e)
+        __log_message(e)
         return None
 
 
@@ -23,13 +23,14 @@ def __is_valid_response(response):
             and content_type.find('html') > -1)
 
 
-def __log_error(msg):
+def __log_message(msg):
     print(msg)
 
 
 def __soup(url):
     from bs4 import BeautifulSoup as bs
-
+    
+    __log_message(f'parsing {url}')
     return bs(__open_url(url), 'html.parser')
 
 
